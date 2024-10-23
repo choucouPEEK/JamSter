@@ -1,82 +1,143 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class DungeonGenerator : MonoBehaviour
 {
-    [SerializeField] Vector2 dungeonSize;
-    [SerializeField] int dungeonRoomOffset;
+    [SerializeField] private DungeonRoom startRoom;
 
-    [SerializeField] int dungeonRoomNumber = 5;
+    [SerializeField] public static List<DungeonRoom> roomPrefabs = new List<DungeonRoom>();
+    [SerializeField] public static List<DungeonRoom> endRoomPrefab = new List<DungeonRoom>();
 
-    [SerializeField] Vector2 dungeonRoomMinSize;
-
+    public static List<Vector3> allRoomPosition = new List<Vector3>();
     void Start()
     {
-        Debug.Log(DungeonRooms());
+        //RecursiveRoomGeneration(startRoom, 8);
     }
 
-    private List<Rect> DungeonRooms()
+    private void RecursiveRoomGeneration(DungeonRoom lPreviousRoom, int lMaxRoomLeft) //Create Rooms with Recursivity, maxRoomLeft say how much room in any way can spawn
     {
-        List<Rect> allRoomsRect = new List<Rect>();
-        allRoomsRect.Add(new Rect(0f,0f,dungeonSize.x,dungeonSize.y));
-
-        for (int i = 0; i < dungeonRoomNumber-1; i++)
+        if (lMaxRoomLeft == 0)
         {
-            Rect biggestRoom = allRoomsRect[BiggestRectInList(allRoomsRect)];
-            allRoomsRect.Remove(biggestRoom);
-
-            if (i%2==0)
+            DungeonRoom room;
+            /*if (lPreviousRoom.isRoomOpenUp)
             {
-                float randomSlice = Random.Range(0+dungeonRoomMinSize.x,biggestRoom.size.x-dungeonRoomMinSize.x);
-
-                allRoomsRect.Add(new Rect(biggestRoom.position.x, biggestRoom.position.y,
-                                          randomSlice, biggestRoom.size.y));
-                allRoomsRect.Add(new Rect(biggestRoom.position.x + randomSlice, biggestRoom.position.y, 
-                                          biggestRoom.size.x- randomSlice ,biggestRoom.size.y));
+                room = FindEndRoom(lPreviousRoom, lMaxRoomLeft, "up");
+                PlaceRoom(lPreviousRoom, room, "up");
             }
-            else
+            if (lPreviousRoom.isRoomOpenDown)
             {
-                float randomSlice = Random.Range(0 + dungeonRoomMinSize.y, biggestRoom.size.y - dungeonRoomMinSize.y);
-
-                allRoomsRect.Add(new Rect(biggestRoom.position.x, biggestRoom.position.y, 
-                                          biggestRoom.size.x, randomSlice));
-                allRoomsRect.Add(new Rect(biggestRoom.position.x, biggestRoom.position.y + randomSlice, 
-                                          biggestRoom.size.x, biggestRoom.size.y - randomSlice));
+                room = FindEndRoom(lPreviousRoom, lMaxRoomLeft, "down");
+                PlaceRoom(lPreviousRoom, room, "down");
+            }
+            if (lPreviousRoom.isRoomOpenLeft)
+            {
+                room = FindEndRoom(lPreviousRoom, lMaxRoomLeft, "left");
+                PlaceRoom(lPreviousRoom, room, "left");
+            }
+            if (lPreviousRoom.isRoomOpenRight)
+            {
+                room = FindEndRoom(lPreviousRoom, lMaxRoomLeft, "right");
+                PlaceRoom(lPreviousRoom, room, "right");
+            }*/
+        }
+        else if (lMaxRoomLeft > 0)
+        {
+            DungeonRoom room;
+            if (lPreviousRoom.isRoomOpenUp)
+            {
+                room = FindRandomRoom(lPreviousRoom, lMaxRoomLeft, "up");
+                PlaceRoom(lPreviousRoom, room, "up");
+                allRoomPosition.Add(room.transform.position);
+                RecursiveRoomGeneration(room, lMaxRoomLeft - 1);
+            }
+            if (lPreviousRoom.isRoomOpenDown)
+            {
+                room = FindRandomRoom(lPreviousRoom, lMaxRoomLeft, "down");
+                PlaceRoom(lPreviousRoom, room, "down");
+                allRoomPosition.Add(room.transform.position);
+                RecursiveRoomGeneration(room, lMaxRoomLeft - 1);
+            }
+            if (lPreviousRoom.isRoomOpenLeft)
+            {
+                room = FindRandomRoom(lPreviousRoom, lMaxRoomLeft, "left");
+                PlaceRoom(lPreviousRoom, room, "left");
+                allRoomPosition.Add(room.transform.position);
+                RecursiveRoomGeneration(room, lMaxRoomLeft - 1);
+            }
+            if (lPreviousRoom.isRoomOpenRight)
+            {
+                room = FindRandomRoom(lPreviousRoom, lMaxRoomLeft, "right");
+                PlaceRoom(lPreviousRoom, room, "right");
+                allRoomPosition.Add(room.transform.position);
+                RecursiveRoomGeneration(room, lMaxRoomLeft - 1);
             }
         }
-        
-        return allRoomsRect;
     }
 
-    private int BiggestRectInList(List<Rect> rects)
+    private DungeonRoom FindRandomRoom(DungeonRoom lPreviousRoom, int lMaxRoomLeft, string lDirection)
     {
-        if (rects == null || rects.Count == 0)
+        List<DungeonRoom> lPossibleRoom = new List<DungeonRoom>();
+        DungeonRoom lSelectedRoom;
+        Vector3 lPreviousPosition = lPreviousRoom.transform.position;
+        for (int room = 0; room < roomPrefabs.Count; room++)
         {
-            throw new ArgumentException("The list of rectangles cannot be null or empty.");
+            if (lDirection == "down" && roomPrefabs[room].isRoomOpenUp && IsPlaceFree(lPreviousPosition + new Vector3(0, 0, 10)))
+                lPossibleRoom.Add(roomPrefabs[room]);
+
+            if (lDirection == "up" && roomPrefabs[room].isRoomOpenDown && IsPlaceFree(lPreviousPosition + new Vector3(0, 0, -10)))
+                lPossibleRoom.Add(roomPrefabs[room]);
+
+            if (lDirection == "left" && roomPrefabs[room].isRoomOpenRight && IsPlaceFree(lPreviousPosition + new Vector3(10, 0, 0)))
+                lPossibleRoom.Add(roomPrefabs[room]);
+
+            if (lDirection == "right" && roomPrefabs[room].isRoomOpenLeft&& IsPlaceFree(lPreviousPosition + new Vector3(-10, 0, 0)))
+                lPossibleRoom.Add(roomPrefabs[room]);
         }
-
-        Rect biggestRect = rects[0];
-        int occurrence = 1;
-        float biggestArea = biggestRect.width * biggestRect.height;
-
-        for (int i = 1; i < rects.Count; i++)
+        lSelectedRoom = lPossibleRoom[Random.Range(0, lPossibleRoom.Count-1)];
+        return lSelectedRoom; 
+    }
+    /*private DungeonRoom FindEndRoom(DungeonRoom lPreviousRoom, int lMaxRoomLeft, string lDirection)
+    {
+        for (int room = 0; room < existingEndRoom.Count; room++)
         {
-            var rect = rects[i];
-            float area = rect.width * rect.height;
+            if (lDirection == "down" && existingEndRoom[room].isRoomOpenUp)
+                return existingEndRoom[room];
 
-            if (area > biggestArea)
-            {
-                biggestRect = rect;
-                biggestArea = area;
-                occurrence = 1;
-            }
-            else if (area == biggestArea)
-            {
-                occurrence++;
-            }
+            if (lDirection == "up" && existingEndRoom[room].isRoomOpenDown)
+                return existingEndRoom[room];
+
+            if (lDirection == "left" && existingEndRoom[room].isRoomOpenRight)
+                return existingEndRoom[room];
+
+            if (lDirection == "right" && existingEndRoom[room].isRoomOpenLeft)
+                return existingEndRoom[room];
         }
-        return occurrence;
+        return null;
+    }*/
+
+    private void PlaceRoom(DungeonRoom lPreviousRoom, DungeonRoom actualRoom, string lDirection)
+    {
+        Instantiate(actualRoom);
+        Debug.Log(actualRoom.name);
+        if(lDirection == "down")
+            actualRoom.transform.position = lPreviousRoom.transform.position+new Vector3(0,0,-10);
+        else if (lDirection == "up")
+            actualRoom.transform.position = lPreviousRoom.transform.position + new Vector3(0, 0, 10);
+        else if (lDirection == "left")
+            actualRoom.transform.position = lPreviousRoom.transform.position + new Vector3(-10, 0, 0);
+        else if (lDirection == "right")
+            actualRoom.transform.position = lPreviousRoom.transform.position + new Vector3(10, 0, 0);
+    }
+
+    private bool IsPlaceFree(Vector3 lPosition)
+    {
+        for (int i = 0; i < allRoomPosition.Count; i++)
+        {
+            if (allRoomPosition[i] == lPosition) return false;
+        }
+        return true;
     }
 }
