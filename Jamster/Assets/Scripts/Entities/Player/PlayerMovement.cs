@@ -27,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
     {
         CheckForWalls();
         Movements();
-        
     }
 
     private void Movements()
