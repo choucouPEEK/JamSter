@@ -696,7 +696,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6994487382263608900, guid: aa5dbf35f783b034ca863c8800a616eb, type: 3}
       propertyPath: m_TagString
-      value: Walls
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8008369820557649283, guid: aa5dbf35f783b034ca863c8800a616eb, type: 3}
       propertyPath: m_TagString
@@ -831,10 +831,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1695717731}
-    - target: {fileID: 3924066281433412406, guid: 96b7d74660dcdf24a991095b94caae90, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 880302768}
+    - target: {fileID: 3693896728449596272, guid: 96b7d74660dcdf24a991095b94caae90, type: 3}
+      propertyPath: _PlayerWidth
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3965401602226035463, guid: 96b7d74660dcdf24a991095b94caae90, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -845,7 +845,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4500371403845561884, guid: 96b7d74660dcdf24a991095b94caae90, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.01
+      value: 0.97
       objectReference: {fileID: 0}
     - target: {fileID: 4500371403845561884, guid: 96b7d74660dcdf24a991095b94caae90, type: 3}
       propertyPath: m_LocalPosition.z
@@ -883,13 +883,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7055924895942459163, guid: 96b7d74660dcdf24a991095b94caae90, type: 3}
+      propertyPath: m_Constraints
+      value: 116
+      objectReference: {fileID: 0}
     - target: {fileID: 7287332939536831294, guid: 96b7d74660dcdf24a991095b94caae90, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 880302768}
     - target: {fileID: 7287332939536831294, guid: 96b7d74660dcdf24a991095b94caae90, type: 3}
       propertyPath: m_VersionIndex
-      value: 3686
+      value: 3710
       objectReference: {fileID: 0}
     - target: {fileID: 8351710748524722041, guid: 96b7d74660dcdf24a991095b94caae90, type: 3}
       propertyPath: m_Mesh
@@ -897,7 +901,7 @@ PrefabInstance:
       objectReference: {fileID: 1695717731}
     - target: {fileID: 8351710748524722041, guid: 96b7d74660dcdf24a991095b94caae90, type: 3}
       propertyPath: m_VersionIndex
-      value: 2982
+      value: 3006
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

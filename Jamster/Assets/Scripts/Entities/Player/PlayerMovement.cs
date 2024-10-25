@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _MaxSpeed = 20;
     [SerializeField] private string _HorizontalAxis = "Horizontal";
     [SerializeField] private string _VerticalAxis = "Vertical";
+    private Vector3 _CurrentSpeed = Vector3.zero;
 
 
     // Start is called before the first frame update
@@ -25,7 +26,12 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckForWalls();
+        //CheckForWalls();
+        //Movements();
+    }
+
+    private void FixedUpdate()
+    {
         Movements();
     }
 
@@ -33,7 +39,9 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 lInput = new Vector3(Input.GetAxis(_HorizontalAxis), 0, Input.GetAxis(_VerticalAxis));
         lInput = Vector3.ClampMagnitude(lInput, 1);
-        transform.position += transform.TransformDirection(lInput) * (_MaxSpeed * Time.deltaTime);
+        _CurrentSpeed = transform.TransformDirection(lInput) * (_MaxSpeed * Time.deltaTime);
+        CheckForWalls() ;
+        transform.position += _CurrentSpeed;
     }
 
     private void CheckForWalls()
@@ -46,33 +54,37 @@ public class PlayerMovement : MonoBehaviour
         {
             if (hitInfo.collider.gameObject.tag == _TagWalls.ToString())
             {
-                transform.position -= transform.forward * (_MaxSpeed * Time.deltaTime);
+                _CurrentSpeed -= transform.forward * (_CurrentSpeed.z * 2 * Time.deltaTime);
             }
         }
+        Debug.DrawRay(myPosition, rayDirection, Color.green);
         //backward
         if (Physics.Raycast(myPosition, -rayDirection, out hitInfo, _PlayerWidth))
         {
             if (hitInfo.collider.gameObject.tag == _TagWalls.ToString())
             {
-                transform.position += transform.forward * (_MaxSpeed * Time.deltaTime);
+                _CurrentSpeed += transform.forward * (_CurrentSpeed.z * 2 * Time.deltaTime);
             }
         }
+        Debug.DrawRay(myPosition, -rayDirection, Color.green);
         rayDirection = transform.right;
         //right
         if (Physics.Raycast(myPosition, rayDirection, out hitInfo, _PlayerWidth))
         {
             if (hitInfo.collider.gameObject.tag == _TagWalls.ToString())
             {
-                transform.position -= transform.right * (_MaxSpeed * Time.deltaTime);
+                _CurrentSpeed -= transform.right * (_CurrentSpeed.x * 2 * Time.deltaTime);
             }
         }
+        Debug.DrawRay(myPosition, rayDirection, Color.green);
         //left
         if (Physics.Raycast(myPosition, -rayDirection, out hitInfo, _PlayerWidth))
         {
             if (hitInfo.collider.gameObject.tag == _TagWalls.ToString())
             {
-                transform.position += transform.right * (_MaxSpeed * Time.deltaTime);
+                _CurrentSpeed += transform.right * (_CurrentSpeed.x *2 * Time.deltaTime);
             }
         }
+        Debug.DrawRay(myPosition, -rayDirection, Color.green);
     }
 }
