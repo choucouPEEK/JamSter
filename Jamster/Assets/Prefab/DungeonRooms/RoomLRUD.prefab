@@ -467,11 +467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5d9aea02be09f448942c264654c6e89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomSize: 10
-  isRoomOpenUp: 1
-  isRoomOpenDown: 1
-  isRoomOpenLeft: 1
-  isRoomOpenRight: 1
+  roomOpens: 01010101
 --- !u!1 &5817117576437447786
 GameObject:
   m_ObjectHideFlags: 0

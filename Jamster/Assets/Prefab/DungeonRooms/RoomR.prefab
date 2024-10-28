@@ -958,29 +958,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5d9aea02be09f448942c264654c6e89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomSize: 10
-  isRoomOpenUp: 0
-  isRoomOpenDown: 0
-  isRoomOpenLeft: 0
-  isRoomOpenRight: 1
-  RoomRemaning: 0
-  roomPrefabs:
-  - {fileID: 0}
-  - {fileID: 8235330362935506070, guid: 1e26718b92ed512428fa9048cc57aaac, type: 3}
-  - {fileID: 1883503298540292088, guid: 3f80c0d9532049b409281a015461216a, type: 3}
-  - {fileID: 2748624621301185959, guid: aa5dbf35f783b034ca863c8800a616eb, type: 3}
-  - {fileID: 6329499167781503178, guid: 4bf454e996002854ea66a3ea2c566028, type: 3}
-  - {fileID: 0}
-  - {fileID: 9119391981864468041}
-  - {fileID: 6785930085419454541, guid: 8f54e4f2514c7e7408ee48486e5e8c9b, type: 3}
-  - {fileID: 3452860885898939698, guid: d0c6b8a642a5f9044924d38d23755914, type: 3}
-  - {fileID: 5885738436886460235, guid: 5a52aa84af84f1047ada048f392f9c07, type: 3}
-  - {fileID: 4920553959165541034, guid: 19840aa07b6dc3e4691ea64ea8064fc4, type: 3}
-  endRoomPrefab:
-  - {fileID: 0}
-  - {fileID: 2748624621301185959, guid: aa5dbf35f783b034ca863c8800a616eb, type: 3}
-  - {fileID: 9119391981864468041}
-  - {fileID: 6785930085419454541, guid: 8f54e4f2514c7e7408ee48486e5e8c9b, type: 3}
+  roomOpens: 00000001
 --- !u!1 &9207861419650722261
 GameObject:
   m_ObjectHideFlags: 0
