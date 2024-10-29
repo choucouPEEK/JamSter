@@ -13,13 +13,10 @@ GameObject:
   - component: {fileID: 5334766656931835964}
   - component: {fileID: 2266417991930115654}
   - component: {fileID: 2634192348645397188}
-<<<<<<< HEAD
-=======
   - component: {fileID: 3424489507074956139}
   - component: {fileID: 2278448138222019612}
->>>>>>> main
   m_Layer: 0
-  m_Name: EnemyPopcorn
+  m_Name: EnemyPopcorn 1
   m_TagString: Ennemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 313815409869069574}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.79, y: 0, z: 2.11}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -106,11 +103,7 @@ MonoBehaviour:
   _TagWalls: Walls
   _PlayerTransform: {fileID: 0}
   life: 1
-<<<<<<< HEAD
-  _MaxSpeed: 15
-=======
   _MaxSpeed: 5
->>>>>>> main
   _AttackSpeed: 0
   _DamageToPlayer: 0
   PlayerPosition: {fileID: 0}
@@ -132,8 +125,6 @@ SphereCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
-<<<<<<< HEAD
-=======
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -182,7 +173,6 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
->>>>>>> main
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
