@@ -258,6 +258,10 @@ MonoBehaviour:
   - {fileID: 6376241690998890095, guid: 9b4d90a6b7b5e12448e78c861d30a907, type: 3}
   - {fileID: 7972838382273229327, guid: 011d4bb15105e904dbdb6e75367887c7, type: 3}
   - {fileID: 2247251755662859990, guid: a6a826f054ebc1440984ffaf17086d54, type: 3}
+  - {fileID: 5058303706418407931, guid: d8b57fbde9fc4044f8f520bf6988680f, type: 3}
+  - {fileID: 8189720615355265572, guid: 570c53152b7abf04f82300ec4c6dabc7, type: 3}
+  - {fileID: 6035057932271889876, guid: 430313b2f4ba7ba40aaf073111855721, type: 3}
+  - {fileID: 7954796943854337761, guid: 13f7389dd4f9e4b4b953ba1979cb4b33, type: 3}
   allRoomPosition: []
   gridSize: {x: 5, y: 5}
   roomSize: {x: 20, y: 15}
