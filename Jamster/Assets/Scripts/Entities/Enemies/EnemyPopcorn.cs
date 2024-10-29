@@ -20,7 +20,7 @@ public class EnemyPopcorn : Enemy
     {
         CheckForWalls();
         if (followPlayer) Mvmnt();
-        print(life);
+        //print(life);
     }
 
 

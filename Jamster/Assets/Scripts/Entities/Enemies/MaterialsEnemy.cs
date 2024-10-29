@@ -39,10 +39,11 @@ public class MaterialsEnemy : MonoBehaviour
     }
     private void ChangeAlpha()
     {
-        _Color.a = 1;
+        //_Color.a = 1;
         _DarkMaterial.color = _Color;
         _Renderer.material = _DarkMaterial;
         _Color.a -= reducingSpeed * Time.deltaTime;
+        Debug.Log(_Color.a);
         if (_Color.a <= 0)
         {
             isInLight = true;

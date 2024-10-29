@@ -22,6 +22,7 @@ public class LightVisibility : MonoBehaviour
         if (other.CompareTag(_EnemyTag))
         {
             MaterialsEnemy lEnemy = other.GetComponent<MaterialsEnemy>();
+            Debug.Log("ENEMY IN");
             lEnemy.InLight();
         }
     }
@@ -32,6 +33,7 @@ public class LightVisibility : MonoBehaviour
         {
             MaterialsEnemy lEnemy = other.GetComponent<MaterialsEnemy>();
             lEnemy.isInLight = false;
+            Debug.Log("ENEMY OUT");
         }
     }
 
