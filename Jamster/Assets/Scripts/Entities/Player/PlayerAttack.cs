@@ -10,7 +10,7 @@ public class PlayerAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        _ActiveCamera = Camera.main;
     }
 
     // Update is called once per frame

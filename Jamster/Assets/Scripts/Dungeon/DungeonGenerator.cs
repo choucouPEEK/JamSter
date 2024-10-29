@@ -16,6 +16,8 @@ public class DungeonGenerator : MonoBehaviour
     private List<List<DungeonRoom>> roomList = new List<List<DungeonRoom>>();
     private Vector2 startingPointPosition;
 
+    [SerializeField] private GameObject player;
+
     public void Start()
     {
         ChooseStartingPoint();
@@ -44,6 +46,8 @@ public class DungeonGenerator : MonoBehaviour
                 if (x == (int)startingPointPosition.x && y == (int)startingPointPosition.y)
                 {
                     roomList[x].Add(roomPrefabs[0]); // Place the starting room
+                    Instantiate(player);
+                    player.transform.position = new Vector3(startingPointPosition.x * roomSize.x, 0.5f, startingPointPosition.y*roomSize.y);
                 }
                 else
                 {
@@ -148,6 +152,7 @@ public class DungeonGenerator : MonoBehaviour
                 {
                     DungeonRoom instantiatedRoom = Instantiate(roomList[x][y]);
                     instantiatedRoom.transform.position = new Vector3(x * roomSize.x, 0, y * roomSize.y);
+                    instantiatedRoom.transform.parent = transform;
                 }
             }
         }
