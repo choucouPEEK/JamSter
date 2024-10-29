@@ -247,10 +247,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomPrefabs:
   - {fileID: 583466411763982945, guid: 6e76c1085ebae5c45af95faa465c9d5e, type: 3}
-  - {fileID: 583466411763982945, guid: 6e76c1085ebae5c45af95faa465c9d5e, type: 3}
+  - {fileID: 1498014215328734440, guid: 2a0bbc6731607f6458efd2fab38dfbf7, type: 3}
+  - {fileID: 961332482572908281, guid: a028e689fc00c0d40b20346c1370a10d, type: 3}
+  - {fileID: 8235330362935506070, guid: 1e26718b92ed512428fa9048cc57aaac, type: 3}
+  - {fileID: 7262386703513670795, guid: 72887ad412e84e9428a92fe1173a2b27, type: 3}
+  - {fileID: 6329499167781503178, guid: 4bf454e996002854ea66a3ea2c566028, type: 3}
+  - {fileID: 5899714668868717092, guid: a2933646e3662ce40a77552983856abe, type: 3}
+  - {fileID: 1320289569608165351, guid: 26248da9f41c7b74598d8e91e4619f6a, type: 3}
+  - {fileID: 3452860885898939698, guid: d0c6b8a642a5f9044924d38d23755914, type: 3}
+  - {fileID: 6376241690998890095, guid: 9b4d90a6b7b5e12448e78c861d30a907, type: 3}
+  - {fileID: 7972838382273229327, guid: 011d4bb15105e904dbdb6e75367887c7, type: 3}
+  - {fileID: 2247251755662859990, guid: a6a826f054ebc1440984ffaf17086d54, type: 3}
   allRoomPosition: []
   gridSize: {x: 5, y: 5}
-  roomSize: {x: 14, y: 13}
+  roomSize: {x: 20, y: 15}
   roomLeft: 5
 --- !u!4 &750659567
 Transform:
