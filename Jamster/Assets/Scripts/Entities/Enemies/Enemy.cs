@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] protected float _EnemyWidth = 1; //used for raycast to the walls
     [SerializeField] protected string _TagWalls;
+    [SerializeField] protected Transform _PlayerTransform;
     protected const string PLAYER_TAG = "Player";
 
     [Header("Health")]
@@ -16,6 +17,9 @@ public class Enemy : MonoBehaviour
 
     [Header("Attack")]
     [SerializeField] protected float _AttackSpeed;
+    [SerializeField] public float _DamageToPlayer;
+
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -26,13 +30,7 @@ public class Enemy : MonoBehaviour
     {
 
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (CompareTag(PLAYER_TAG))
-        {
-            LooseLife();
-        }
-    }
+    
     protected void LooseLife()
     {
         life--;
