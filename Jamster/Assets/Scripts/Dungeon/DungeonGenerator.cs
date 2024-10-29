@@ -18,6 +18,10 @@ public class DungeonGenerator : MonoBehaviour
 
     [SerializeField] private GameObject player;
 
+    //Camera Variable
+    [SerializeField] private DungeonCamera dungeonCamera;
+    [SerializeField] private Vector3 cameraPos;
+
     public void Start()
     {
         ChooseStartingPoint();
@@ -25,6 +29,12 @@ public class DungeonGenerator : MonoBehaviour
         RecursiveRoomCreation(roomLeft, startingPointPosition);
         OpenRoomEverySide();
         InstantiateGrid();
+        dungeonCamera.transform.position = new Vector3(startingPointPosition.x * roomSize.x, 0, startingPointPosition.y * roomSize.y) + cameraPos;
+    }
+
+    void Update()
+    {
+        SetCameraPosition();
     }
 
     // Choose a random starting point
@@ -153,6 +163,25 @@ public class DungeonGenerator : MonoBehaviour
                     DungeonRoom instantiatedRoom = Instantiate(roomList[x][y]);
                     instantiatedRoom.transform.position = new Vector3(x * roomSize.x, 0, y * roomSize.y);
                     instantiatedRoom.transform.parent = transform;
+                }
+            }
+        }
+    }
+
+    private void SetCameraPosition()
+    {
+        Vector2 closestRoom = new Vector2(0,0);
+
+        for(int x = 0;x < gridSize.x; x++)
+        {
+            for ( int y = 0;y < gridSize.y; y++)
+            {
+
+                if (Vector3.Distance(player.transform.position, new Vector3(x * roomSize.x, 0 , y * roomSize.y))
+                  < Vector3.Distance(player.transform.position, new Vector3(closestRoom.x, 0, closestRoom.y)))
+                {
+                    closestRoom = new Vector2(x * roomSize.x, y * roomSize.y);
+                    dungeonCamera.transform.position = new Vector3(x * roomSize.x, 0, y * roomSize.y) + cameraPos;
                 }
             }
         }
