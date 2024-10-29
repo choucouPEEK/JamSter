@@ -10,7 +10,6 @@ public class MaterialsEnemy : MonoBehaviour
     private MeshRenderer _Renderer;
     public bool isInLight = true;
     private Color _Color;
-    private float _ReducingSpeed = .001f;
     // Start is called before the first frame update
     void Start()
     {
