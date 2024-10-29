@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DungeonGenerator : MonoBehaviour
@@ -11,7 +13,7 @@ public class DungeonGenerator : MonoBehaviour
     [SerializeField] private Vector2 roomSize = new Vector2();
 
     [SerializeField] private int roomLeft; // Total rooms to generate Aroud
-    private List<List<DungeonRoom>> roomList;
+    private List<List<DungeonRoom>> roomList = new List<List<DungeonRoom>>();
     private Vector2 startingPointPosition;
 
     public void Start()
@@ -19,20 +21,20 @@ public class DungeonGenerator : MonoBehaviour
         ChooseStartingPoint();
         CreateGrid();
         RecursiveRoomCreation(roomLeft, startingPointPosition);
+        OpenRoomEverySide();
         InstantiateGrid();
     }
 
     // Choose a random starting point
     private void ChooseStartingPoint()
     {
-        startingPointPosition = new Vector2(Mathf.Floor(Random.Range(0, gridSize.x)), Mathf.Floor(Random.Range(0, gridSize.y)));
+        //startingPointPosition = new Vector2(Mathf.Floor(Random.Range(0, gridSize.x)), Mathf.Floor(Random.Range(0, gridSize.y)));
+        startingPointPosition = new Vector2(Mathf.Floor(gridSize.x/2), Mathf.Floor(gridSize.y/2));
     }
 
     // Create the grid with room prefabs
     private void CreateGrid()
     {
-        roomList = new List<List<DungeonRoom>>();
-
         for (int x = 0; x < gridSize.x; x++)
         {
             roomList.Add(new List<DungeonRoom>());
@@ -67,14 +69,14 @@ public class DungeonGenerator : MonoBehaviour
             Vector2 nextPosition = currentPosition + direction;
 
             // Check if the next position is valid
-            if (IsPositionInGrid(nextPosition) && roomList[Mathf.FloorToInt(nextPosition.x)][Mathf.FloorToInt(nextPosition.y)] == null)
+            if (IsPositionInGrid(nextPosition) && roomList[Mathf.FloorToInt(nextPosition.x)][Mathf.FloorToInt(nextPosition.y)] == null && Random.Range(0,3) != 0)
             {
                 // Place the room
                 roomList[Mathf.FloorToInt(nextPosition.x)][Mathf.FloorToInt(nextPosition.y)] = roomPrefabs[0];
                 roomLeft--; // Decrement room count
 
                 // Recursively try to create more rooms from the new position
-                RecursiveRoomCreation(roomLeft-1, nextPosition);
+                RecursiveRoomCreation(roomLeft, nextPosition);
             }
         }
     }
@@ -84,7 +86,57 @@ public class DungeonGenerator : MonoBehaviour
     {
         return position.x >= 0 && position.x < gridSize.x && position.y >= 0 && position.y < gridSize.y;
     }
+
+    //Set room to Prefab with every possible open
+    private void OpenRoomEverySide()
+    {
+        List<bool> lRoomOpen = new List<bool>();
+        for (int i = 0; i < 4; i++)
+        {
+            lRoomOpen.Add(false);
+        }
+
+        for (int x = 0; x < gridSize.x; x++)
+        {
+            for (int y = 0; y < gridSize.x; y++)
+            {
+                for (int room = 0; room < lRoomOpen.Count; room++)
+                {
+                    lRoomOpen[room] = false;
+                }
+                if (roomList[x][y] != null)
+                {
+                    if (IsPositionInGrid(new Vector2(x, y + 1)) && roomList[x][y + 1] != null) lRoomOpen[0] = true;
+                    if (IsPositionInGrid(new Vector2(x, y - 1)) && roomList[x][y - 1] != null) lRoomOpen[1] = true;
+                    if (IsPositionInGrid(new Vector2(x - 1, y)) && roomList[x - 1][y] != null) lRoomOpen[2] = true;
+                    if (IsPositionInGrid(new Vector2(x + 1, y)) && roomList[x + 1][y] != null) lRoomOpen[3] = true;
+
+                    roomList[x][y] = FindRoomWithOpens(lRoomOpen);
+                }
+            }
+        }
+    }
     
+    //Check in List Of room prefab compatible rooms; 
+    private DungeonRoom FindRoomWithOpens(List<bool> lRoomOpens)
+    {
+        
+        List<DungeonRoom> roomPosibilities = new List<DungeonRoom>();
+        for (int x = 0; x < roomPrefabs.Count; x++)
+        {
+            if (lRoomOpens[0] == roomPrefabs[x].roomOpens[0] &&
+                lRoomOpens[1] == roomPrefabs[x].roomOpens[1] &&
+                lRoomOpens[2] == roomPrefabs[x].roomOpens[2] &&
+                lRoomOpens[3] == roomPrefabs[x].roomOpens[3]
+                )
+            {
+                roomPosibilities.Add(roomPrefabs[x]);
+            }
+        }
+        if (roomPosibilities.Count > 0) return roomPosibilities[Random.Range(0, roomPosibilities.Count - 1)];
+        else return roomPrefabs[0];
+    }
+
     // Instantiate the rooms in the scene
     private void InstantiateGrid()
     {

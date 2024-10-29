@@ -6,6 +6,7 @@ using static UnityEditor.Timeline.TimelinePlaybackControls;
 public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] public Camera _ActiveCamera;
+    [SerializeField] private Transform _ArrowContainer;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +19,7 @@ public class PlayerAttack : MonoBehaviour
         Ray ray = _ActiveCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit raycastHit))
         {
-            transform.LookAt(new Vector3(raycastHit.point.x, transform.position.y, raycastHit.point.z));
+            _ArrowContainer.transform.LookAt(new Vector3(raycastHit.point.x, transform.position.y, raycastHit.point.z));
         }
     }
 }

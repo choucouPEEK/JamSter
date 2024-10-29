@@ -5,11 +5,7 @@ using UnityEngine.UIElements;
 
 public class DungeonRoom : MonoBehaviour
 {
-    [SerializeField] public int roomSize = 20;
-    [SerializeField] public bool isRoomOpenUp;
-    [SerializeField] public bool isRoomOpenDown;
-    [SerializeField] public bool isRoomOpenLeft;
-    [SerializeField] public bool isRoomOpenRight;
+    [SerializeField] public List<bool> roomOpens = new List<bool>(4);
 
     void Start()
     {
