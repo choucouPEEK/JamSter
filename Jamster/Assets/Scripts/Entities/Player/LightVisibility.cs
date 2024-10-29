@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LightVisibility : MonoBehaviour
 {
-    [SerializeField] private string _EnemyTag;
+    [SerializeField] private string _EnemyTag="Ennemy";
     // Start is called before the first frame update
     void Start()
     {
@@ -19,12 +19,20 @@ public class LightVisibility : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-       // if(other.CompareTag())
+        if (other.CompareTag(_EnemyTag))
+        {
+            MaterialsEnemy lEnemy = other.GetComponent<MaterialsEnemy>();
+            lEnemy.InLight();
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-
+        if (other.CompareTag(_EnemyTag))
+        {
+            MaterialsEnemy lEnemy = other.GetComponent<MaterialsEnemy>();
+            lEnemy.isInLight = false;
+        }
     }
 
 
